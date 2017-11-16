@@ -96,8 +96,11 @@ export default class CustomMultiPicker extends Component {
     const list = this.state.searchText ? this.filterObjectByValue(options, option => option.toLowerCase().includes(this.state.searchText)) : options
     const labels = Object.keys(list).map(i => list[i])
     const values = Object.keys(list)
+    const width = this.props.containerWidth || Dimensions.get('window').width;
+    const height = this.props.containerHeight || Dimensions.get('window').height;
+
     return(
-      <View style={{flex: 1, alignSelf: 'stretch', flexDirection: 'column', height: 50, maxHeight: 200 }}>
+      <View style={{height: height, width: width}}>
         {this.props.search && <View style={{ flexDirection: 'row', height: 55 }}>
           <View style={{ marginTop: 15, marginLeft: 15, backgroundColor: 'transparent' }}>
             <Icon name="ios-search-outline" color={this.props.iconColor} size={25}/>
