@@ -6,6 +6,7 @@ import {
   Dimensions,
   TouchableOpacity,
   ScrollView,
+  Image,
   TextInput
 } from 'react-native';
 var { width, height } = Dimensions.get('window');
@@ -102,19 +103,20 @@ export default class CustomMultiPicker extends Component {
     return(
       <View style={{height: height, width: width}}>
         {this.props.search && <View style={{ flexDirection: 'row', height: 55 }}>
-          <View style={{ marginTop: 15, marginLeft: 15, backgroundColor: 'transparent' }}>
-            <Icon name="ios-search-outline" color={this.props.iconColor} size={25}/>
+          <View style={{ marginTop: 15, marginLeft: 20, backgroundColor: 'transparent' }}>
+            <Icon name="ios-search-outline" color={'black'} size={25}/>
           </View>
           <TextInput
             style={{
-              width: 300,
+              width: Dimensions.get('window').width - 30,
               height: 35,
               margin: 0,
               marginTop: 10,
-              marginLeft: -25,
+              marginLeft: -26,
               padding: 5,
               paddingLeft: 30,
-              borderColor: this.props.iconColor,
+              borderColor: 'white',
+              borderBottomColor: 'black',
               borderWidth: 1,
               borderRadius: 5
             }}
@@ -129,30 +131,30 @@ export default class CustomMultiPicker extends Component {
           style={{ padding: 5, height: this.props.scrollViewHeight }}
         >
           {labels.map((label, index) => {
-            const itemKey = returnValue == "label" ? label : values[index]
+            const itemKey = returnValue == "label" ? label.label : values[index];
             return(
               <TouchableOpacity
                 key={Math.round(Math.random() * 1000000)}
                 style={{
-                  padding: 7,
-                  marginTop: 5,
+                  padding: 10,
+                  marginTop: 1,
                   marginLeft: 2,
                   marginRight: 2,
-                  marginBottom: 6,
+                  marginBottom: 1,
                   backgroundColor: this.props.rowBackgroundColor,
                   height: this.props.rowHeight,
                   flexDirection: 'row',
                   justifyContent: 'space-between',
-                  alignItems: 'center',
+                  alignItems: 'flex-start',
                   borderRadius: this.props.rowRadius
                 }}
                 onPress={() => {
                   this._onSelect(itemKey)
                 }}
               >
-                <Text>{label}</Text>
-                {
-
+                <Image style={[{height: 30, width: 30, borderRadius: 10}]} source={{uri: label.profile_url}}/>
+                <Text style={{flex:1, alignItems: 'flex-start', left: 15, color: '#ffff', top: 1, fontSize: 20, fontWeight: 'bold', fontFamily: 'Lato-Regular'}}>{label.label}</Text>
+                { 
                   this._isSelected(itemKey) ?
                   <Icon name={this.props.selectedIconName} color={this.props.iconColor} size={this.props.iconSize} />
                   :
