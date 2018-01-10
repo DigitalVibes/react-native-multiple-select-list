@@ -74,7 +74,7 @@ export default class CustomMultiPicker extends Component {
 
   _onSearch = (text) => {
     this.setState({
-      searchText: text.length > 0 ? text.toLowerCase() : null
+      searchText: text.length > 0 ? text.toString().toLowerCase() : null
     })
   }
 
@@ -94,7 +94,7 @@ export default class CustomMultiPicker extends Component {
 
   render(){
     const { options, returnValue } = this.props;
-    const list = this.state.searchText ? this.filterObjectByValue(options, option => option.toLowerCase().includes(this.state.searchText)) : options
+    const list = this.state.searchText ? this.filterObjectByValue(options, option => option.toString().toLowerCase().includes(this.state.searchText)) : options
     const labels = Object.keys(list).map(i => list[i])
     const values = Object.keys(list)
     const width = this.props.containerWidth || Dimensions.get('window').width;
